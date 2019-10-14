@@ -3,9 +3,12 @@ FROM centos:6
 RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bakcup \
     && curl http://mirrors.163.com/.help/CentOS6-Base-163.repo -o /etc/yum.repos.d/CentOS6-Base-163.repo \
     && yum -y update \
+    && yum -y install sudo \
     && yum -y clean all \
     && localedef -i en_US -f UTF-8 en_US.UTF-8 \
-    && useradd -u 1000 -ms /bin/sh bwang
+    && useradd -u 1000 -ms /bin/sh bwang \
+    && echo 'bwang ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
 
 USER bwang
 WORKDIR /home/bwang
